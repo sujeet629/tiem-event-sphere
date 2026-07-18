@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIEM EventSphere</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="header-logo">🎓</div>
+        <div>
+            <h1>TIEM EventSphere</h1>
+            <p>Techno Institute of Engineering & Management</p>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <ul id="nav-list">
+        <li><a href="#" data-page="home">🏠 Home</a></li>
+        <li><a href="#" data-page="events">📋 Events</a></li>
+        <li><a href="#" data-page="reg-history">📑 My Registrations</a></li>
+        <li><a href="#" data-page="contact">📧 About</a></li>
+        <li><a href="#" data-page="admin-login" class="nav-admin" id="nav-admin-btn">📊 Admin</a></li>
+        <li><a href="#" data-page="auth-section" id="nav-login-btn">🔐 Login / Signup</a></li>
+        <li><a href="#" id="nav-logout-btn" style="display:none; color:#ef4444;">🚪 Logout</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <!-- HOME -->
+    <section id="home" class="page-section">
+        <div class="hero-banner">
+            <h2>Welcome to TIEM EventSphere! 🏛️</h2>
+            <p>Your one-stop portal for all college event registrations. Explore, register, and be part of the action.</p>
+            <button id="hero-explore-btn" class="btn-primary">Explore All Events →</button>
+        </div>
+        <h3 class="section-heading">🗓️ Upcoming Events Snapshot</h3>
+        <div class="upcoming-events">
+            <div class="event-card">
+                <img src="images/fest.jpg" alt="Annual Fest - Ullash">
+                <div class="event-card-body">
+                    <h4>Annual Fest — Ullash v10.0</h4>
+                    <p>The biggest cultural fest of the year. Music, dance, drama, and live performances!</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <img src="images/fresher.jpeg" alt="Freshers">
+                <div class="event-card-body">
+                    <h4>Freshers' — Freshtopia 2.0</h4>
+                    <p>Welcoming the new 2025 batch with cultural activities and essential introductions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTH -->
+    <section id="auth-section" class="page-section" style="display:none;">
+        <div class="auth-wrapper">
+
+            <!-- Role Tab Switcher -->
+            <div class="role-tabs">
+                <button class="role-tab active" id="tab-student" onclick="window.switchAuthRole('student')">🎓 Student</button>
+                <button class="role-tab" id="tab-admin" onclick="window.switchAuthRole('admin')">📊 Admin</button>
+            </div>
+
+            <!-- STUDENT PANEL -->
+            <div id="student-auth-panel" class="auth-panel">
+                <div class="auth-panel-header">
+                    <h2 id="auth-title">Student Sign Up</h2>
+                    <p class="section-sub" id="auth-sub">Create an account to register for events and track your registrations.</p>
+                </div>
+                <div class="auth-card">
+                    <form id="auth-form">
+                        <div class="form-group">
+                            <label for="auth-email">Email Address *</label>
+                            <input type="email" id="auth-email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="auth-password">Password *</label>
+                            <input type="password" id="auth-password" placeholder="Minimum 6 characters" required>
+                        </div>
+                        <div class="form-actions" style="margin-top:20px;">
+                            <button type="submit" id="auth-submit-btn" class="btn-primary" style="width:100%;">Create Account ✓</button>
+                        </div>
+                    </form>
+                    <p style="margin-top:16px; text-align:center; font-size:0.9rem;">
+                        <a href="#" id="auth-toggle-link" style="color:#1a56db; font-weight:600; text-decoration:none;">Already have an account? Log In</a>
+                    </p>
+                    <p id="student-auth-msg" style="text-align:center; font-size:0.85rem; margin:8px 0 0; color:#e02424;"></p>
+                </div>
+            </div>
+
+            <!-- ADMIN PANEL -->
+            <div id="admin-auth-panel" class="auth-panel" style="display:none;">
+                <div class="auth-panel-header">
+                    <h2 id="admin-auth-title">Admin Sign In</h2>
+                    <p class="section-sub" id="admin-auth-sub">Sign in with your admin credentials to access the dashboard.</p>
+                </div>
+                <div class="auth-card admin-auth-card">
+                    <form id="admin-auth-form">
+                        <div class="form-group">
+                            <label for="admin-auth-email">Email Address *</label>
+                            <input type="email" id="admin-auth-email" placeholder="admin@tiem.edu" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-auth-password">Password *</label>
+                            <input type="password" id="admin-auth-password" placeholder="Minimum 6 characters" required>
+                        </div>
+                        <div id="admin-secret-field" class="form-group" style="display:none;">
+                            <label for="admin-secret-input">Admin Secret Key *</label>
+                            <input type="password" id="admin-secret-input" placeholder="Enter admin secret key">
+                            <small style="color:var(--muted); font-size:0.78rem;">Required only when creating a new admin account.</small>
+                        </div>
+                        <div class="form-actions" style="margin-top:20px;">
+                            <button type="submit" id="admin-auth-submit-btn" class="btn-primary btn-admin-submit" style="width:100%;">Sign In →</button>
+                        </div>
+                    </form>
+                    <p style="margin-top:16px; text-align:center; font-size:0.9rem;">
+                        <a href="#" id="admin-auth-toggle-link" style="color:#b45309; font-weight:600; text-decoration:none;">New admin? Create Admin Account</a>
+                    </p>
+                    <p id="admin-auth-msg" style="text-align:center; font-size:0.85rem; margin:8px 0 0; color:#e02424;"></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EVENTS LIST -->
+    <section id="events" class="page-section" style="display:none;">
+        <h2>Events List & Registration</h2>
+        <p class="section-sub">Explore the exciting events this semester. Click <strong>Register</strong> to sign up!</p>
+        <div id="events-list-container"></div>
+    </section>
+
+    <!-- REGISTRATION HISTORY -->
+    <section id="reg-history" class="page-section" style="display:none;">
+        <h2>📑 My Registrations</h2>
+        <p class="section-sub">All events you have registered for.</p>
+        <div id="reg-history-container">
+            <p style="color:var(--muted); text-align:center; padding:40px 0;">Loading your registrations...</p>
+        </div>
+    </section>
+
+    <!-- CULTURAL REGISTRATION FORM -->
+    <section id="registration" class="page-section" style="display:none;">
+        <div class="form-container">
+            <h2 id="reg-form-title">Register for an Event</h2>
+            <p class="section-sub">Fill in your details below. Fields marked * are required.</p>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label for="reg-event">Event Selected *</label>
+                    <input type="text" id="reg-event" name="event" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name *</label>
+                        <input type="text" id="reg-name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email Address *</label>
+                        <input type="email" id="reg-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reg-phone">Phone Number</label>
+                        <input type="tel" id="reg-phone" name="phone" placeholder="10-digit mobile number">
+                    </div>
+                    <div class="form-group" id="field-dept">
+                        <label for="reg-dept">Department *</label>
+                        <select id="reg-dept" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="CSE">Computer Science (CSE)</option>
+                            <option value="ECE">Electronics & Comm. (ECE)</option>
+                            <option value="MECH">Mechanical Engg. (MECH)</option>
+                            <option value="IT">Information Technology (IT)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" id="field-year-radio" style="display:none;">
+                    <label>Academic Year *</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="year_radio" value="1"> 1st</label>
+                        <label class="radio-label"><input type="radio" name="year_radio" value="2"> 2nd</label>
+                        <label class="radio-label"><input type="radio" name="year_radio" value="3"> 3rd</label>
+                        <label class="radio-label"><input type="radio" name="year_radio" value="4"> 4th</label>
+                    </div>
+                </div>
+                <div class="form-group" id="field-year-select" style="display:none;">
+                    <label for="reg-year">Academic Year *</label>
+                    <select id="reg-year" name="year">
+                        <option value="">Select Year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group" id="field-activity" style="display:none;">
+                    <label>Select Activity *</label>
+                    <div class="radio-group" id="activity-options"></div>
+                </div>
+                <div class="form-group" id="field-group-type" style="display:none;">
+                    <label>Group <span class="optional-tag">(optional)</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="group_type" value="Singing"> Singing</label>
+                        <label class="radio-label"><input type="radio" name="group_type" value="Dancing"> Dancing</label>
+                    </div>
+                </div>
+                <div class="form-group" id="field-group-name" style="display:none;">
+                    <label for="reg-group-name">Group Name <span class="optional-tag">(optional)</span></label>
+                    <input type="text" id="reg-group-name" name="group_name" placeholder="Enter your group name">
+                </div>
+                <div class="form-group" id="field-group-participants" style="display:none;">
+                    <label for="reg-group-participants">Group Participants Name <span class="optional-tag">(optional)</span></label>
+                    <input type="text" id="reg-group-participants" name="group_participants" placeholder="e.g. Rahul, Priya, Anik...">
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="reg-back-btn" class="btn-secondary">← Back to Events</button>
+                    <button type="submit" class="btn-primary">Submit Registration ✓</button>
+                </div>
+            </form>
+            <div id="reg-message" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- SPORTS MAIN -->
+    <section id="sports-main" class="page-section" style="display:none;">
+        <div class="sports-breadcrumb">
+            <span class="bc-link" onclick="window.showPage('events')">Events</span> › <span>College Sports — Sportivo 5.0</span>
+        </div>
+        <h2>🏅 College Sports — Sportivo 5.0</h2>
+        <p class="section-sub">Select a category to register for your sport.</p>
+        <div class="sports-category-grid">
+            <div class="sports-cat-card" onclick="window.showSportsSection('solo-athletics')">
+                <div class="sports-cat-icon">🏃</div>
+                <h3>Solo Athletics</h3>
+                <p>100m Race, Discus Throw, Shot Put, Long Jump</p>
+            </div>
+            <div class="sports-cat-card" onclick="window.showSportsSection('team-games')">
+                <div class="sports-cat-icon">⚽</div>
+                <h3>Team Games</h3>
+                <p>Football, Cricket, Volleyball, Tug of War, Badminton, Kho-Kho</p>
+            </div>
+            <div class="sports-cat-card" onclick="window.showSportsSection('musical-chair')">
+                <div class="sports-cat-icon">🪑</div>
+                <h3>Musical Chair</h3>
+                <p>Girls Only — Individual Event</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLO ATHLETICS -->
+    <section id="solo-athletics" class="page-section" style="display:none;">
+        <div class="sports-breadcrumb">
+            <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+            <span>Solo Athletics</span>
+        </div>
+        <h2>🏃 Solo Athletics</h2>
+        <p class="section-sub">Select your event to continue.</p>
+        <div class="sports-event-grid">
+            <div class="sports-event-card" onclick="window.showSoloGender('100m Race')">
+                <div class="sports-event-icon">💨</div><h4>100m Race</h4>
+                <span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.showSoloGender('Discus Throw')">
+                <div class="sports-event-icon">🥏</div><h4>Discus Throw</h4>
+                <span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.showSoloGender('Shot Put')">
+                <div class="sports-event-icon">🏋️</div><h4>Shot Put</h4>
+                <span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openSoloForm('Long Jump','Boys')">
+                <div class="sports-event-icon">🦘</div><h4>Long Jump</h4>
+                <span class="gender-tag boys-only">Boys Only</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLO GENDER -->
+    <section id="solo-gender" class="page-section" style="display:none;">
+        <div class="sports-breadcrumb">
+            <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('solo-athletics')">Solo Athletics</span> ›
+            <span id="solo-gender-event-name">Event</span>
+        </div>
+        <h2 id="solo-gender-title">Select Category</h2>
+        <p class="section-sub">Choose your gender category to continue.</p>
+        <div class="sports-event-grid">
+            <div class="sports-event-card gender-card" onclick="window.openSoloFormFromGender('Boys')">
+                <div class="sports-event-icon">👦</div><h4>Boys</h4>
+            </div>
+            <div class="sports-event-card gender-card" onclick="window.openSoloFormFromGender('Girls')">
+                <div class="sports-event-icon">👧</div><h4>Girls</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLO REG FORM -->
+    <section id="solo-reg" class="page-section" style="display:none;">
+        <div class="form-container">
+            <div class="sports-breadcrumb">
+                <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+                <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+                <span class="bc-link" onclick="window.showSportsSection('solo-athletics')">Solo Athletics</span>
+            </div>
+            <h2 id="solo-reg-title">Solo Athletics Registration</h2>
+            <div id="solo-reg-badge" class="auto-assigned-badge"></div>
+            <p class="section-sub">Fill in your details. Fields marked * are required.</p>
+            <form id="solo-reg-form">
+                <input type="hidden" id="solo-event-hidden">
+                <input type="hidden" id="solo-category-hidden">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="solo-name">Full Name *</label>
+                        <input type="text" id="solo-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="solo-phone">Phone Number *</label>
+                        <input type="tel" id="solo-phone" placeholder="10-digit mobile number" required>
+                    </div>
+                </div>
+                <div class="form-group email-verify-group">
+                    <label for="solo-email">Email Address *</label>
+                    <div class="email-verify-row">
+                        <input type="email" id="solo-email" placeholder="your@email.com" required>
+                        <button type="button" class="btn-verify" onclick="window.verifyEmail('solo-email','solo-email-status')">Verify Email</button>
+                    </div>
+                    <span id="solo-email-status" class="verify-status"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="solo-year">Academic Year *</label>
+                        <select id="solo-year" required>
+                            <option value="">Select Year</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="solo-roll">Roll Number *</label>
+                        <input type="text" id="solo-roll" placeholder="Enter roll number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="solo-dept">Department *</label>
+                    <select id="solo-dept" required>
+                        <option value="">Select Department</option>
+                        <option value="CSE">CSE</option>
+                        <option value="AIML">AIML</option>
+                        <option value="ECE">ECE</option>
+                        <option value="ME">ME</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="window.showSportsSection('solo-athletics')" class="btn-secondary">← Back</button>
+                    <button type="submit" class="btn-primary">Submit Registration ✓</button>
+                </div>
+            </form>
+            <div id="solo-reg-message" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- TEAM GAMES -->
+    <section id="team-games" class="page-section" style="display:none;">
+        <div class="sports-breadcrumb">
+            <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+            <span>Team Games</span>
+        </div>
+        <h2>⚽ Team Games</h2>
+        <p class="section-sub">Select your sport to continue.</p>
+        <div class="sports-event-grid">
+            <div class="sports-event-card" onclick="window.openTeamForm('Football','')">
+                <div class="sports-event-icon">⚽</div><h4>Football</h4><span class="gender-tag">Open</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('Cricket','')">
+                <div class="sports-event-icon">🏏</div><h4>Cricket</h4><span class="gender-tag">Open</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('Volleyball','')">
+                <div class="sports-event-icon">🏐</div><h4>Volleyball</h4><span class="gender-tag">Open</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('Tug Of War','')">
+                <div class="sports-event-icon">💪</div><h4>Tug Of War</h4><span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('Badminton','')">
+                <div class="sports-event-icon">🏸</div><h4>Badminton</h4><span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('Kho-Kho','')">
+                <div class="sports-event-icon">🤸</div><h4>Kho-Kho</h4><span class="gender-tag">Boys & Girls</span>
+            </div>
+            <div class="sports-event-card" onclick="window.openTeamForm('400m Relay Race','')">
+                <div class="sports-event-icon">🏃</div><h4>400m Relay Race</h4><span class="gender-tag">Boys & Girls</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM GENDER (kept for legacy routing, not used actively) -->
+    <section id="team-gender" class="page-section" style="display:none;">
+        <div class="sports-breadcrumb">
+            <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+            <span class="bc-link" onclick="window.showSportsSection('team-games')">Team Games</span> ›
+            <span id="team-gender-event-name">Event</span>
+        </div>
+        <h2 id="team-gender-title">Select Category</h2>
+        <p class="section-sub">Choose your gender category to continue.</p>
+        <div class="sports-event-grid">
+            <div class="sports-event-card gender-card" onclick="window.openTeamFormFromGender('Boys')">
+                <div class="sports-event-icon">👦</div><h4>Boys</h4>
+            </div>
+            <div class="sports-event-card gender-card" onclick="window.openTeamFormFromGender('Girls')">
+                <div class="sports-event-icon">👧</div><h4>Girls</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM REG FORM -->
+    <section id="team-reg" class="page-section" style="display:none;">
+        <div class="form-container">
+            <div class="sports-breadcrumb">
+                <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+                <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+                <span class="bc-link" onclick="window.showSportsSection('team-games')">Team Games</span>
+            </div>
+            <h2 id="team-reg-title">Team Registration</h2>
+            <div id="team-reg-badge" class="auto-assigned-badge"></div>
+            <p class="section-sub">Fill in your team details. Fields marked * are required.</p>
+            <form id="team-reg-form">
+                <input type="hidden" id="team-sport-hidden">
+                <input type="hidden" id="team-category-hidden">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="team-captain">Captain's Name *</label>
+                        <input type="text" id="team-captain" placeholder="Enter captain's full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="team-phone">Phone Number *</label>
+                        <input type="tel" id="team-phone" placeholder="10-digit mobile number" required>
+                    </div>
+                </div>
+                <div class="form-group email-verify-group">
+                    <label for="team-email">Email Address *</label>
+                    <div class="email-verify-row">
+                        <input type="email" id="team-email" placeholder="your@email.com" required>
+                        <button type="button" class="btn-verify" onclick="window.verifyEmail('team-email','team-email-status')">Verify Email</button>
+                    </div>
+                    <span id="team-email-status" class="verify-status"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" id="field-team-gender" style="display:none;">
+                        <label for="team-gender">Gender *</label>
+                        <select id="team-gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="team-year">Academic Year *</label>
+                        <select id="team-year" required>
+                            <option value="">Select Year</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="team-dept">Department *</label>
+                    <select id="team-dept" required>
+                        <option value="">Select Department</option>
+                        <option value="CSE">CSE</option>
+                        <option value="AIML">AIML</option>
+                        <option value="ECE">ECE</option>
+                        <option value="ME">ME</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="team-name">Team Name *</label>
+                    <input type="text" id="team-name" placeholder="Enter your team name" required>
+                </div>
+                <div class="form-group">
+                    <label for="team-players">Players Names *</label>
+                    <textarea id="team-players" rows="6" placeholder="1. Player Name&#10;2. Player Name&#10;3. Player Name&#10;4. Player Name" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="window.showSportsSection('team-games')" class="btn-secondary">← Back</button>
+                    <button type="submit" class="btn-primary">Submit Registration ✓</button>
+                </div>
+            </form>
+            <div id="team-reg-message" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- MUSICAL CHAIR -->
+    <section id="musical-chair" class="page-section" style="display:none;">
+        <div class="form-container">
+            <div class="sports-breadcrumb">
+                <span class="bc-link" onclick="window.showPage('events')">Events</span> ›
+                <span class="bc-link" onclick="window.showSportsSection('sports-main')">Sports</span> ›
+                <span>Musical Chair</span>
+            </div>
+            <h2>🪑 Musical Chair Registration</h2>
+            <div class="auto-assigned-badge">🎀 Event: Musical Chair &nbsp;|&nbsp; Category: Girls Only</div>
+            <p class="section-sub">Fill in your details. Fields marked * are required.</p>
+            <form id="musical-chair-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mc-name">Full Name *</label>
+                        <input type="text" id="mc-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mc-phone">Phone Number *</label>
+                        <input type="tel" id="mc-phone" placeholder="10-digit mobile number" required>
+                    </div>
+                </div>
+                <div class="form-group email-verify-group">
+                    <label for="mc-email">Email Address *</label>
+                    <div class="email-verify-row">
+                        <input type="email" id="mc-email" placeholder="your@email.com" required>
+                        <button type="button" class="btn-verify" onclick="window.verifyEmail('mc-email','mc-email-status')">Verify Email</button>
+                    </div>
+                    <span id="mc-email-status" class="verify-status"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mc-year">Academic Year *</label>
+                        <select id="mc-year" required>
+                            <option value="">Select Year</option>
+                            <option value="1st Year">1st Year</option>
+                            <option value="2nd Year">2nd Year</option>
+                            <option value="3rd Year">3rd Year</option>
+                            <option value="4th Year">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mc-roll">Roll Number *</label>
+                        <input type="text" id="mc-roll" placeholder="Enter roll number" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="mc-dept">Department *</label>
+                    <select id="mc-dept" required>
+                        <option value="">Select Department</option>
+                        <option value="CSE">CSE</option>
+                        <option value="AIML">AIML</option>
+                        <option value="ECE">ECE</option>
+                        <option value="ME">ME</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="window.showSportsSection('sports-main')" class="btn-secondary">← Back</button>
+                    <button type="submit" class="btn-primary">Submit Registration ✓</button>
+                </div>
+            </form>
+            <div id="mc-reg-message" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- ADMIN LOGIN & DASHBOARD -->
+    <section id="admin-login" class="page-section" style="display:none;">
+        <h2>Admin Dashboard 📊</h2>
+        <p class="section-sub">Manage all student registrations for TIEM EventSphere.</p>
+
+        <!-- Login Box -->
+        <div id="admin-login-box" style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-top:20px;">
+            <div style="flex:1; min-width:220px; background:#e8f0fe; border-radius:12px; padding:24px; border:1px solid #b9cffb;">
+                <h3 style="margin:0 0 14px; font-family:'Rajdhani',sans-serif; color:#1341b0; font-size:1.2rem;">📋 Admin Portal</h3>
+                <ul style="margin:0 0 14px; padding-left:18px; font-size:0.85rem; color:#334155; line-height:1.9;">
+                    <li>View all event registrations</li>
+                    <li>Filter by event, sport or department</li>
+                    <li>Search students by name</li>
+                    <li>Download data as CSV</li>
+                    <li>Clear all entries if needed</li>
+                </ul>
+                <p style="margin:0; font-size:0.8rem; color:#64748b; background:#fff; padding:10px 14px; border-radius:8px; border:1px solid #c7d7fb;">
+                    New admin? <a href="#" id="admin-register-link" style="color:#1a56db; font-weight:600;">Create admin account →</a>
+                </p>
+            </div>
+            <div style="flex:1; min-width:260px; max-width:380px; background:#fff; border:2px solid #b9cffb; border-radius:12px; padding:28px; box-shadow:0 4px 20px rgba(26,86,219,0.10);">
+                <h3 style="margin:0 0 20px; font-family:'Rajdhani',sans-serif; color:#1341b0; font-size:1.2rem; text-align:center;">🔐 Admin Sign In</h3>
+                <form id="admin-form">
+                    <div style="margin-bottom:16px;">
+                        <label for="admin-user" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.9rem; color:#1e293b;">Email</label>
+                        <input type="email" id="admin-user" placeholder="admin@tiem.edu" required
+                            style="width:100%; padding:10px 14px; border:1.5px solid #b9cffb; border-radius:7px; font-size:0.95rem; font-family:'Poppins',sans-serif; background:#f8faff; color:#1e293b; box-sizing:border-box;">
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label for="admin-pass" style="display:block; margin-bottom:6px; font-weight:600; font-size:0.9rem; color:#1e293b;">Password</label>
+                        <input type="password" id="admin-pass" placeholder="Enter password" required
+                            style="width:100%; padding:10px 14px; border:1.5px solid #b9cffb; border-radius:7px; font-size:0.95rem; font-family:'Poppins',sans-serif; background:#f8faff; color:#1e293b; box-sizing:border-box;">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;">Login →</button>
+                </form>
+                <p id="admin-message" style="color:#e02424; font-size:0.85rem; text-align:center; margin:10px 0 0;"></p>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard (shown after login) -->
+        <div id="admin-data-preview" style="display:none;">
+            <div class="admin-header-bar">
+                <h3>📊 Registration Dashboard</h3>
+                <div class="admin-actions">
+                    <button id="admin-export-btn" class="btn-export">⬇ Download as Excel</button>
+                    <button id="admin-clear-btn" class="btn-danger">🗑 Clear All</button>
+                </div>
+            </div>
+            <div id="admin-stats" class="stats-row"></div>
+            <div class="admin-controls">
+                <input type="text" id="admin-search" placeholder="🔍 Search by name or department...">
+                <select id="admin-filter">
+                    <option value="">All Events</option>
+                </select>
+                <select id="admin-sport-filter" style="display:none;">
+                    <option value="">All Sports</option>
+                </select>
+                <select id="admin-gender-filter" style="display:none;">
+                    <option value="">All Genders</option>
+                    <option value="Boys">Boys</option>
+                    <option value="Girls">Girls</option>
+                </select>
+            </div>
+            <div class="table-wrapper">
+                <table id="admin-data-table"></table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / CONTACT -->
+    <section id="contact" class="page-section" style="display:none;">
+        <h2>About TIEM EventSphere 📧</h2>
+        <p>The <strong>TIEM EventSphere</strong> portal streamlines the event registration process for students and faculty — a central hub for all extracurricular announcements at TIEM.</p>
+        <hr>
+        <h3>College Details</h3>
+        <div class="contact-grid">
+            <div class="contact-item"><span>🏫</span><div><strong>Institution</strong><p>Techno Institute of Engineering & Management (TIEM)</p></div></div>
+            <div class="contact-item"><span>📍</span><div><strong>Address</strong><p>Banipur College Road, Habra, North 24 Parganas – 743233, West Bengal</p></div></div>
+            <div class="contact-item"><span>✉️</span><div><strong>Email</strong><p>info@tiem.edu</p></div></div>
+            <div class="contact-item"><span>📞</span><div><strong>Phone</strong><p>+91 xxxxxxxxxx</p></div></div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    &copy; 2025 TIEM EventSphere &nbsp;|&nbsp; Developed as a Frontend Project &nbsp;|&nbsp; Techno Institute of Engineering & Management
+</footer>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>
